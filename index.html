@@ -3,2125 +3,1109 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CVAnalyzer — Seu currículo analisado por IA em minutos</title>
-<meta name="description" content="A IA que analisa seu currículo, aponta pontos fracos e aumenta suas chances de conseguir emprego. Análise profissional por R$ 29,90.">
+<title>CVAnalyzer — Descubra por que seu currículo é ignorado</title>
+<meta name="description" content="Você envia currículos e ninguém responde? O problema pode não ser sua experiência. Descubra o que te elimina das vagas por R$29,90.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════
-   RESET & VARIABLES
-═══════════════════════════════════════════ */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg:           #080808;
-  --bg2:          #0f0f0f;
-  --surface:      #111111;
-  --surface2:     #181818;
-  --border:       #1e1e1e;
-  --border2:      #2a2a2a;
-  --accent:       #c8f060;
-  --accent-dim:   rgba(200,240,96,0.08);
-  --accent-glow:  rgba(200,240,96,0.25);
-  --gold:         #f0c860;
-  --gold-dim:     rgba(240,200,96,0.1);
-  --purple:       #b788ff;
-  --purple-dim:   rgba(183,136,255,0.1);
-  --text:         #e8e8e0;
-  --text2:        #a0a098;
-  --text3:        #555550;
-  --danger:       #ff6b6b;
-  --white:        #ffffff;
+  --preto: #0a0a0a;
+  --quase-preto: #111;
+  --cinza-escuro: #1a1a1a;
+  --cinza-medio: #2e2e2e;
+  --cinza-borda: #333;
+  --texto: #f0f0ec;
+  --texto2: #a8a8a0;
+  --verde: #c9f05a;
+  --verde-escuro: #a8cc3a;
+  --vermelho: #ff5c5c;
 }
 
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Syne', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
+  font-family: 'Inter', sans-serif;
+  background: var(--preto);
+  color: var(--texto);
+  line-height: 1.65;
+  font-size: 17px;
   overflow-x: hidden;
 }
 
-/* ═══════════════════════════════════════════
-   TYPOGRAPHY
-═══════════════════════════════════════════ */
-.display {
-  font-family: 'Playfair Display', serif;
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -1px;
+a { color: inherit; text-decoration: none; }
+
+/* ─── BARRA DE TOPO ─── */
+.barra-topo {
+  background: var(--verde);
+  color: #000;
+  text-align: center;
+  padding: 10px 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
-.mono { font-family: 'DM Mono', monospace; }
-
-.label {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--text3);
-}
-
-/* ═══════════════════════════════════════════
-   LAYOUT
-═══════════════════════════════════════════ */
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-.container--narrow {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-section { position: relative; }
-
-/* ═══════════════════════════════════════════
-   NAV
-═══════════════════════════════════════════ */
+/* ─── NAV ─── */
 nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  background: rgba(8,8,8,0.9);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-  padding: 14px 0;
-  transition: all 0.3s;
-}
-
-.nav-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 24px;
+  background: rgba(10,10,10,0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--cinza-borda);
+  padding: 16px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 99;
 }
 
-.nav-logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.1rem;
+.logo {
+  font-family: 'Fraunces', serif;
+  font-size: 1.25rem;
   font-weight: 900;
   letter-spacing: -0.5px;
 }
 
-.nav-logo span { color: var(--accent); }
+.logo span { color: var(--verde); }
 
-.nav-cta {
-  background: var(--accent);
+.nav-btn {
+  background: var(--verde);
   color: #000;
   border: none;
-  border-radius: 2px;
-  font-family: 'DM Mono', monospace;
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding: 9px 18px;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-decoration: none;
-  display: inline-block;
-}
-
-.nav-cta:hover {
-  background: #d9ff70;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px var(--accent-glow);
-}
-
-/* ═══════════════════════════════════════════
-   HERO
-═══════════════════════════════════════════ */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  padding: 120px 0 80px;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Grid background */
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(200,240,96,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(200,240,96,0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
-}
-
-/* Glow blobs */
-.hero-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(120px);
-  pointer-events: none;
-}
-
-.hero-blob--1 {
-  width: 600px; height: 400px;
-  background: rgba(200,240,96,0.06);
-  top: 10%; left: -10%;
-  animation: blobDrift 12s ease-in-out infinite alternate;
-}
-
-.hero-blob--2 {
-  width: 400px; height: 400px;
-  background: rgba(183,136,255,0.05);
-  top: 20%; right: -5%;
-  animation: blobDrift 15s ease-in-out infinite alternate-reverse;
-}
-
-@keyframes blobDrift {
-  from { transform: translate(0, 0) scale(1); }
-  to   { transform: translate(40px, 30px) scale(1.1); }
-}
-
-.hero-inner {
-  position: relative;
-  z-index: 2;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 24px;
-  display: grid;
-  grid-template-columns: 1fr 440px;
-  gap: 80px;
-  align-items: center;
-}
-
-.hero-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--accent-dim);
-  border: 1px solid rgba(200,240,96,0.2);
-  border-radius: 20px;
-  padding: 5px 14px;
-  margin-bottom: 24px;
-}
-
-.hero-tag-dot {
-  width: 6px; height: 6px;
-  background: var(--accent);
-  border-radius: 50%;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%,100% { opacity: 1; transform: scale(1); }
-  50%      { opacity: 0.4; transform: scale(0.8); }
-}
-
-.hero-tag span {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.63rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-
-.hero-h1 {
-  font-size: clamp(2.8rem, 5vw, 4.2rem);
-  margin-bottom: 20px;
-}
-
-.hero-h1 em {
-  font-style: italic;
-  color: var(--accent);
-}
-
-.hero-sub {
-  font-size: 1.05rem;
-  color: var(--text2);
-  line-height: 1.7;
-  margin-bottom: 36px;
-  max-width: 480px;
-}
-
-.hero-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.btn-hero {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--accent);
-  color: #000;
-  border: none;
-  border-radius: 3px;
-  font-family: 'DM Mono', monospace;
+  padding: 10px 22px;
   font-size: 0.82rem;
-  font-weight: 500;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding: 18px 32px;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.25s;
-  text-decoration: none;
-}
-
-.btn-hero:hover {
-  background: #d9ff70;
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px var(--accent-glow);
-}
-
-.btn-hero-icon { font-size: 1rem; }
-
-.hero-trust {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'DM Mono', monospace;
-  font-size: 0.68rem;
-  color: var(--text3);
-  letter-spacing: 1px;
-}
-
-.hero-trust-dot { color: var(--accent); }
-
-/* Hero card mockup */
-.hero-mockup {
-  position: relative;
-}
-
-.mockup-card {
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: 6px;
-  padding: 24px;
-  position: relative;
-  overflow: hidden;
-}
-
-.mockup-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent), var(--purple));
-}
-
-.mockup-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.mockup-avatar {
-  width: 38px; height: 38px;
-  background: linear-gradient(135deg, var(--accent), #8fcc00);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #000;
-  flex-shrink: 0;
-}
-
-.mockup-name { font-size: 0.85rem; font-weight: 700; }
-.mockup-role { font-size: 0.7rem; color: var(--text3); font-family: 'DM Mono', monospace; }
-
-.mockup-score-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 6px;
-}
-
-.mockup-score-label { font-size: 0.7rem; color: var(--text2); font-family: 'DM Mono', monospace; }
-.mockup-score-val   { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--accent); font-weight: 700; }
-
-.mockup-bar {
-  width: 100%;
-  height: 4px;
-  background: var(--border2);
-  border-radius: 2px;
-  margin-bottom: 20px;
-  overflow: hidden;
-}
-
-.mockup-bar-fill {
-  height: 100%;
-  width: 72%;
-  background: linear-gradient(90deg, var(--accent), #a0d040);
-  border-radius: 2px;
-  animation: barGrow 2s ease forwards;
-}
-
-@keyframes barGrow {
-  from { width: 0; }
-  to   { width: 72%; }
-}
-
-.mockup-items { display: flex; flex-direction: column; gap: 8px; }
-
-.mockup-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  background: var(--bg2);
   border-radius: 4px;
-  border: 1px solid var(--border);
-  animation: itemSlide 0.4s ease both;
+  transition: background 0.15s, transform 0.15s;
 }
 
-.mockup-item:nth-child(1) { animation-delay: 0.2s; }
-.mockup-item:nth-child(2) { animation-delay: 0.4s; }
-.mockup-item:nth-child(3) { animation-delay: 0.6s; }
+.nav-btn:hover { background: var(--verde-escuro); transform: translateY(-1px); }
 
-@keyframes itemSlide {
-  from { opacity: 0; transform: translateX(10px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
+/* ─── CONTAINER ─── */
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+.wrap-larga { max-width: 960px; margin: 0 auto; padding: 0 24px; }
 
-.mockup-item-icon {
-  width: 24px; height: 24px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.65rem;
-  flex-shrink: 0;
-}
-
-.icon-warn { background: rgba(240,200,96,0.15); color: var(--gold); }
-.icon-ok   { background: rgba(200,240,96,0.15); color: var(--accent); }
-.icon-crit { background: rgba(255,107,107,0.15); color: var(--danger); }
-
-.mockup-item-text { font-size: 0.72rem; color: var(--text2); line-height: 1.4; flex: 1; }
-
-.mockup-badge {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.55rem;
-  letter-spacing: 1px;
-  padding: 2px 7px;
-  border-radius: 10px;
-}
-
-.badge-warn { background: rgba(240,200,96,0.1); color: var(--gold); border: 1px solid rgba(240,200,96,0.3); }
-.badge-ok   { background: rgba(200,240,96,0.1); color: var(--accent); border: 1px solid rgba(200,240,96,0.3); }
-.badge-crit { background: rgba(255,107,107,0.1); color: var(--danger); border: 1px solid rgba(255,107,107,0.3); }
-
-.mockup-floating {
-  position: absolute;
-  top: -16px; right: -16px;
-  background: var(--surface2);
-  border: 1px solid var(--border2);
-  border-radius: 4px;
-  padding: 10px 14px;
-  font-family: 'DM Mono', monospace;
-  font-size: 0.68rem;
-  color: var(--accent);
-  white-space: nowrap;
-  animation: floatBob 3s ease-in-out infinite;
-}
-
-@keyframes floatBob {
-  0%,100% { transform: translateY(0); }
-  50%      { transform: translateY(-6px); }
-}
-
-/* ═══════════════════════════════════════════
-   STATS BAR
-═══════════════════════════════════════════ */
-.stats-bar {
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  background: var(--surface);
-  padding: 28px 0;
-}
-
-.stats-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 24px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-}
-
-.stat-item {
+/* ─── HERO ─── */
+.hero {
+  padding: 80px 24px 70px;
   text-align: center;
-  padding: 0 24px;
-  border-right: 1px solid var(--border);
-}
-
-.stat-item:last-child { border-right: none; }
-
-.stat-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 2rem;
-  font-weight: 900;
-  color: var(--accent);
-  display: block;
-  line-height: 1;
-  margin-bottom: 4px;
-}
-
-.stat-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.65rem;
-  color: var(--text3);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
-
-/* ═══════════════════════════════════════════
-   DOR SECTION
-═══════════════════════════════════════════ */
-.pain {
-  padding: 100px 0;
-  background: var(--bg);
-}
-
-.section-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.62rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 16px;
-  display: block;
-}
-
-.pain-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-  margin-top: 60px;
-}
-
-.pain-h2 {
-  font-size: clamp(2rem, 3.5vw, 3rem);
-  line-height: 1.1;
-  margin-bottom: 24px;
-}
-
-.pain-h2 span { color: var(--danger); }
-
-.pain-text {
-  color: var(--text2);
-  font-size: 0.95rem;
-  line-height: 1.8;
-  margin-bottom: 20px;
-}
-
-.pain-problems {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.pain-problem {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 14px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  border-left: 3px solid var(--danger);
-}
-
-.pain-problem-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
-.pain-problem-text { font-size: 0.83rem; color: var(--text2); line-height: 1.5; }
-
-.pain-right {
-  position: relative;
-}
-
-.rejection-card {
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: 6px;
-  padding: 28px;
-  position: relative;
-}
-
-.rejection-title {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 16px;
-}
-
-.rejection-stat {
-  text-align: center;
-  padding: 24px 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 20px;
-}
-
-.rejection-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 4.5rem;
-  font-weight: 900;
-  color: var(--danger);
-  line-height: 1;
-  display: block;
-}
-
-.rejection-desc {
-  font-size: 0.8rem;
-  color: var(--text2);
-  margin-top: 6px;
-  font-family: 'DM Mono', monospace;
-  letter-spacing: 1px;
-}
-
-.rejection-reasons {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.rejection-reason {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.78rem;
-  color: var(--text2);
-}
-
-.rejection-reason::before {
-  content: '→';
-  color: var(--danger);
-  flex-shrink: 0;
-}
-
-/* ═══════════════════════════════════════════
-   HOW IT WORKS
-═══════════════════════════════════════════ */
-.how {
-  padding: 100px 0;
-  background: var(--bg2);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-
-.section-head {
-  text-align: center;
-  margin-bottom: 64px;
-}
-
-.section-h2 {
-  font-size: clamp(1.8rem, 3vw, 2.8rem);
-  margin-bottom: 12px;
-}
-
-.section-sub {
-  color: var(--text2);
-  font-size: 0.95rem;
-  max-width: 480px;
+  max-width: 760px;
   margin: 0 auto;
 }
 
-.steps {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2px;
-  position: relative;
-}
-
-/* Linha conectando os steps */
-.steps::before {
-  content: '';
-  position: absolute;
-  top: 40px;
-  left: calc(12.5% + 20px);
-  right: calc(12.5% + 20px);
-  height: 1px;
-  background: linear-gradient(90deg, var(--accent), var(--purple));
-  z-index: 0;
-}
-
-.step {
-  padding: 0 20px;
-  text-align: center;
-  position: relative;
-  z-index: 1;
-}
-
-.step-num {
-  width: 56px; height: 56px;
-  border-radius: 50%;
-  background: var(--bg);
-  border: 2px solid var(--border2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 20px;
-  font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
-  font-weight: 900;
-  color: var(--text3);
-  position: relative;
-  transition: all 0.3s;
-}
-
-.step:hover .step-num {
-  border-color: var(--accent);
-  color: var(--accent);
-  box-shadow: 0 0 24px var(--accent-glow);
-}
-
-.step-icon {
-  position: absolute;
-  top: -8px; right: -8px;
-  font-size: 0.9rem;
-}
-
-.step-title {
-  font-size: 0.92rem;
+.hero-kicker {
+  display: inline-block;
+  background: rgba(255,92,92,0.12);
+  border: 1px solid rgba(255,92,92,0.3);
+  color: var(--vermelho);
+  font-size: 0.72rem;
   font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.step-desc {
-  font-size: 0.78rem;
-  color: var(--text2);
-  line-height: 1.6;
-}
-
-/* ═══════════════════════════════════════════
-   BENEFITS
-═══════════════════════════════════════════ */
-.benefits {
-  padding: 100px 0;
-  background: var(--bg);
-}
-
-.benefits-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 60px;
-}
-
-.benefit-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 28px;
-  transition: all 0.25s;
-  cursor: default;
-}
-
-.benefit-card:hover {
-  border-color: var(--border2);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-}
-
-.benefit-icon {
-  font-size: 1.8rem;
-  margin-bottom: 16px;
-  display: block;
-}
-
-.benefit-title {
-  font-size: 0.95rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.benefit-desc {
-  font-size: 0.78rem;
-  color: var(--text2);
-  line-height: 1.7;
-}
-
-/* Featured card */
-.benefit-card--featured {
-  border-color: rgba(200,240,96,0.25);
-  background: linear-gradient(135deg, var(--surface) 60%, #151a08);
-  grid-column: span 2;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: start;
-  gap: 20px;
-}
-
-.benefit-card--featured:hover {
-  border-color: rgba(200,240,96,0.4);
-}
-
-.benefit-feat-badge {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.58rem;
   letter-spacing: 2px;
   text-transform: uppercase;
-  background: var(--accent-dim);
-  color: var(--accent);
-  border: 1px solid rgba(200,240,96,0.3);
-  padding: 4px 10px;
+  padding: 5px 14px;
   border-radius: 20px;
-  white-space: nowrap;
-}
-
-/* ═══════════════════════════════════════════
-   SOCIAL PROOF
-═══════════════════════════════════════════ */
-.proof {
-  padding: 100px 0;
-  background: var(--bg2);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-
-.proof-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 60px;
-}
-
-.testimonial {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 28px;
-  position: relative;
-}
-
-.testimonial::before {
-  content: '"';
-  position: absolute;
-  top: 16px; right: 20px;
-  font-family: 'Playfair Display', serif;
-  font-size: 4rem;
-  color: var(--border2);
-  line-height: 1;
-}
-
-.testimonial-stars {
-  display: flex;
-  gap: 3px;
-  margin-bottom: 16px;
-}
-
-.star { color: var(--gold); font-size: 0.85rem; }
-
-.testimonial-text {
-  font-size: 0.85rem;
-  color: var(--text2);
-  line-height: 1.7;
-  margin-bottom: 20px;
-}
-
-.testimonial-author {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
-}
-
-.testimonial-avatar {
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #000;
-  flex-shrink: 0;
-}
-
-.av-1 { background: linear-gradient(135deg, #c8f060, #90cc00); }
-.av-2 { background: linear-gradient(135deg, #f0c860, #d09000); }
-.av-3 { background: linear-gradient(135deg, #b788ff, #8040dd); }
-
-.testimonial-name  { font-size: 0.82rem; font-weight: 700; }
-.testimonial-role  { font-size: 0.68rem; color: var(--text3); font-family: 'DM Mono', monospace; }
-
-/* Numbers row */
-.proof-numbers {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-bottom: 60px;
-}
-
-.proof-number {
-  text-align: center;
-  padding: 32px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-}
-
-.proof-number-val {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.8rem;
-  font-weight: 900;
-  color: var(--accent);
-  display: block;
-  line-height: 1;
-  margin-bottom: 6px;
-}
-
-.proof-number-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.68rem;
-  color: var(--text2);
-  letter-spacing: 1px;
-}
-
-/* ═══════════════════════════════════════════
-   WHAT'S INCLUDED
-═══════════════════════════════════════════ */
-.included {
-  padding: 100px 0;
-  background: var(--bg);
-}
-
-.included-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
-  margin-top: 60px;
-}
-
-.included-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.included-item {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 16px 20px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  transition: all 0.2s;
-}
-
-.included-item:hover {
-  border-color: rgba(200,240,96,0.3);
-  background: var(--accent-dim);
-}
-
-.included-check {
-  width: 28px; height: 28px;
-  background: var(--accent-dim);
-  border: 1px solid rgba(200,240,96,0.3);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--accent);
-  font-size: 0.75rem;
-  flex-shrink: 0;
-}
-
-.included-item-title {
-  font-size: 0.88rem;
-  font-weight: 700;
-  display: block;
-  margin-bottom: 2px;
-}
-
-.included-item-desc {
-  font-size: 0.72rem;
-  color: var(--text2);
-  font-family: 'DM Mono', monospace;
-}
-
-.included-visual {
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: 6px;
-  padding: 28px;
-  position: relative;
-  overflow: hidden;
-}
-
-.included-visual::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent), var(--purple), var(--gold));
-}
-
-.iv-title {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.62rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 20px;
-}
-
-.iv-mode {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 14px;
-  border-radius: 4px;
-  margin-bottom: 8px;
-  border: 1px solid var(--border);
-}
-
-.iv-mode--active {
-  background: var(--accent-dim);
-  border-color: rgba(200,240,96,0.25);
-}
-
-.iv-mode-icon { font-size: 1.1rem; }
-.iv-mode-name { font-size: 0.82rem; font-weight: 700; flex: 1; }
-
-.iv-mode-tag {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.55rem;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  padding: 2px 8px;
-  border-radius: 10px;
-}
-
-.iv-tag-std   { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(200,240,96,0.3); }
-.iv-tag-prem  { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(183,136,255,0.3); }
-.iv-tag-elite { background: var(--gold-dim);   color: var(--gold);   border: 1px solid rgba(240,200,96,0.3); }
-
-/* ═══════════════════════════════════════════
-   PRICING
-═══════════════════════════════════════════ */
-.pricing {
-  padding: 100px 0;
-  background: var(--bg2);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-
-.price-card {
-  max-width: 520px;
-  margin: 60px auto 0;
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: 6px;
-  overflow: hidden;
-  position: relative;
-}
-
-.price-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent), #a0d040);
-}
-
-.price-card-top {
-  padding: 36px 36px 28px;
-  text-align: center;
-  border-bottom: 1px solid var(--border);
-}
-
-.price-plan-name {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 8px;
-}
-
-.price-amount {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 4px;
-  margin-bottom: 8px;
-}
-
-.price-currency {
-  font-family: 'DM Mono', monospace;
-  font-size: 1.1rem;
-  color: var(--text2);
-  margin-top: 12px;
-}
-
-.price-value {
-  font-family: 'Playfair Display', serif;
-  font-size: 5rem;
-  font-weight: 900;
-  color: var(--accent);
-  line-height: 1;
-}
-
-.price-cents {
-  font-family: 'Playfair Display', serif;
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--accent);
-  margin-top: 8px;
-}
-
-.price-period {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.72rem;
-  color: var(--text2);
-  letter-spacing: 1px;
-}
-
-.price-card-body {
-  padding: 28px 36px 36px;
-}
-
-.price-features {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
   margin-bottom: 28px;
 }
 
-.price-feature {
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.4rem, 6vw, 3.8rem);
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: -1.5px;
+  margin-bottom: 22px;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--verde);
+}
+
+.hero-sub {
+  font-size: 1.12rem;
+  color: var(--texto2);
+  max-width: 540px;
+  margin: 0 auto 38px;
+  line-height: 1.6;
+}
+
+.hero-sub strong { color: var(--texto); }
+
+.btn-principal {
+  display: inline-block;
+  background: var(--verde);
+  color: #000;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 17px 38px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+  line-height: 1;
+}
+
+.btn-principal:hover {
+  background: var(--verde-escuro);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(201,240,90,0.3);
+}
+
+.hero-microcopy {
+  margin-top: 14px;
+  font-size: 0.78rem;
+  color: var(--texto2);
+}
+
+/* ─── DIVISOR ─── */
+hr.divisor {
+  border: none;
+  border-top: 1px solid var(--cinza-borda);
+  margin: 0;
+}
+
+/* ─── QUEBRA DE CRENÇA ─── */
+.crenca {
+  padding: 70px 24px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.crenca-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--verde);
+  margin-bottom: 18px;
+  display: block;
+}
+
+.crenca h2 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.7rem, 4vw, 2.6rem);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -1px;
+  margin-bottom: 22px;
+}
+
+.crenca p {
+  color: var(--texto2);
+  font-size: 1.05rem;
+  margin-bottom: 16px;
+  line-height: 1.7;
+}
+
+.crenca p strong { color: var(--texto); }
+
+.crenca-destaque {
+  background: var(--cinza-escuro);
+  border-left: 3px solid var(--verde);
+  padding: 18px 22px;
+  border-radius: 0 6px 6px 0;
+  margin-top: 28px;
+  font-size: 1rem;
+  color: var(--texto);
+  line-height: 1.6;
+}
+
+/* ─── DORES ─── */
+.dores {
+  background: var(--quase-preto);
+  padding: 70px 24px;
+  border-top: 1px solid var(--cinza-borda);
+  border-bottom: 1px solid var(--cinza-borda);
+}
+
+.dores-inner { max-width: 720px; margin: 0 auto; }
+
+.dores h2 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.8px;
+  margin-bottom: 10px;
+}
+
+.dores-sub {
+  color: var(--texto2);
+  font-size: 1rem;
+  margin-bottom: 36px;
+}
+
+.lista-dores {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.lista-dores li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--cinza-escuro);
+  border: 1px solid var(--cinza-borda);
+  padding: 16px 18px;
+  border-radius: 8px;
+  font-size: 0.97rem;
+  line-height: 1.5;
+}
+
+.lista-dores li .icone {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ─── SOLUÇÃO ─── */
+.solucao {
+  padding: 80px 24px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.solucao-label {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--verde);
+  margin-bottom: 18px;
+}
+
+.solucao h2 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.7rem, 4vw, 2.6rem);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -1px;
+  margin-bottom: 20px;
+}
+
+.solucao h2 em {
+  font-style: italic;
+  color: var(--verde);
+}
+
+.solucao p {
+  font-size: 1.05rem;
+  color: var(--texto2);
+  margin-bottom: 16px;
+  line-height: 1.7;
+}
+
+.solucao p strong { color: var(--texto); }
+
+/* ─── BENEFÍCIOS ─── */
+.beneficios {
+  background: var(--cinza-escuro);
+  border-top: 1px solid var(--cinza-borda);
+  border-bottom: 1px solid var(--cinza-borda);
+  padding: 70px 24px;
+}
+
+.beneficios-inner { max-width: 720px; margin: 0 auto; }
+
+.beneficios h2 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.6rem, 4vw, 2.3rem);
+  font-weight: 900;
+  letter-spacing: -0.8px;
+  line-height: 1.2;
+  margin-bottom: 36px;
+}
+
+.lista-beneficios {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.lista-beneficios li {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--cinza-borda);
+}
+
+.lista-beneficios li:last-child { border-bottom: none; padding-bottom: 0; }
+
+.ben-num {
+  font-family: 'Fraunces', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--verde);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 40px;
+}
+
+.ben-titulo {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 4px;
+  color: var(--texto);
+}
+
+.ben-desc {
+  font-size: 0.9rem;
+  color: var(--texto2);
+  line-height: 1.55;
+}
+
+/* ─── PROVA SOCIAL ─── */
+.prova {
+  padding: 70px 24px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.prova h2 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-weight: 900;
+  letter-spacing: -0.8px;
+  margin-bottom: 36px;
+  line-height: 1.2;
+}
+
+.depoimentos {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.depo {
+  background: var(--cinza-escuro);
+  border: 1px solid var(--cinza-borda);
+  border-radius: 10px;
+  padding: 22px 24px;
+}
+
+.depo-texto {
+  font-size: 0.97rem;
+  line-height: 1.6;
+  color: var(--texto);
+  margin-bottom: 12px;
+}
+
+.depo-texto::before { content: '"'; color: var(--verde); font-size: 1.4rem; font-family: 'Fraunces', serif; }
+
+.depo-autor {
+  font-size: 0.8rem;
+  color: var(--texto2);
+  font-weight: 600;
+}
+
+.depo-estrelas {
+  color: #f5c518;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+/* ─── OFERTA ─── */
+.oferta {
+  background: var(--quase-preto);
+  border-top: 1px solid var(--cinza-borda);
+  padding: 80px 24px;
+}
+
+.oferta-box {
+  max-width: 600px;
+  margin: 0 auto;
+  background: var(--cinza-escuro);
+  border: 1px solid var(--cinza-borda);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.oferta-topo {
+  background: var(--verde);
+  color: #000;
+  text-align: center;
+  padding: 16px 24px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.oferta-corpo {
+  padding: 36px 36px 40px;
+}
+
+.oferta-titulo {
+  font-family: 'Fraunces', serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.oferta-desc {
+  color: var(--texto2);
+  font-size: 0.92rem;
+  margin-bottom: 28px;
+}
+
+.oferta-lista {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin-bottom: 32px;
+}
+
+.oferta-lista li {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 0.85rem;
-  color: var(--text2);
+  font-size: 0.95rem;
 }
 
-.price-feature-check {
-  color: var(--accent);
+.oferta-lista li::before {
+  content: '✓';
+  color: var(--verde);
+  font-weight: 700;
+  font-size: 1rem;
   flex-shrink: 0;
 }
 
-.btn-price {
-  width: 100%;
-  background: var(--accent);
-  color: #000;
-  border: none;
-  border-radius: 3px;
-  font-family: 'DM Mono', monospace;
-  font-size: 0.82rem;
-  font-weight: 500;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding: 18px;
-  cursor: pointer;
-  transition: all 0.25s;
+.preco-linha {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.preco-de {
+  font-size: 0.9rem;
+  color: var(--texto2);
+  text-decoration: line-through;
+}
+
+.preco-por {
+  font-family: 'Fraunces', serif;
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--texto);
+  line-height: 1;
+}
+
+.preco-desc {
+  font-size: 0.8rem;
+  color: var(--texto2);
+  margin-bottom: 24px;
+}
+
+.btn-comprar {
   display: block;
+  width: 100%;
+  background: var(--verde);
+  color: #000;
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding: 18px 24px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
   text-align: center;
+  transition: all 0.15s;
+  margin-bottom: 16px;
   text-decoration: none;
+}
+
+.btn-comprar:hover {
+  background: var(--verde-escuro);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(201,240,90,0.3);
+}
+
+.oferta-seguranca {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--texto2);
+  line-height: 1.6;
+}
+
+/* ─── GARANTIA ─── */
+.garantia {
+  padding: 60px 24px;
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.garantia-icone {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+.garantia h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
   margin-bottom: 14px;
 }
 
-.btn-price:hover {
-  background: #d9ff70;
-  transform: translateY(-1px);
-  box-shadow: 0 8px 30px var(--accent-glow);
-}
-
-.price-guarantee {
-  text-align: center;
-  font-family: 'DM Mono', monospace;
-  font-size: 0.68rem;
-  color: var(--text3);
-  letter-spacing: 1px;
-  line-height: 1.6;
-}
-
-.price-post-info {
+.garantia p {
+  font-size: 0.97rem;
+  color: var(--texto2);
   max-width: 520px;
-  margin: 20px auto 0;
-  background: rgba(183,136,255,0.06);
-  border: 1px solid rgba(183,136,255,0.2);
-  border-radius: 4px;
-  padding: 16px 20px;
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
+  margin: 0 auto;
+  line-height: 1.7;
 }
 
-.price-post-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
-
-.price-post-text {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.7rem;
-  color: var(--text2);
-  line-height: 1.6;
-  letter-spacing: 0.5px;
-}
-
-.price-post-text strong { color: var(--purple); }
-
-/* ═══════════════════════════════════════════
-   FAQ
-═══════════════════════════════════════════ */
-.faq {
-  padding: 100px 0;
-  background: var(--bg);
-}
-
-.faq-list {
-  margin-top: 60px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.faq-item {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.faq-q {
-  width: 100%;
-  background: none;
-  border: none;
-  padding: 20px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  cursor: pointer;
-  text-align: left;
-  color: var(--text);
-  font-family: 'Syne', sans-serif;
-  font-size: 0.92rem;
-  font-weight: 700;
-  transition: background 0.15s;
-}
-
-.faq-q:hover { background: var(--surface2); }
-
-.faq-arrow {
-  color: var(--accent);
-  font-size: 0.8rem;
-  flex-shrink: 0;
-  transition: transform 0.2s;
-}
-
-.faq-item.open .faq-arrow { transform: rotate(180deg); }
-
-.faq-a {
-  display: none;
-  padding: 0 24px 20px;
-  font-size: 0.85rem;
-  color: var(--text2);
-  line-height: 1.75;
-  border-top: 1px solid var(--border);
-  padding-top: 16px;
-}
-
-.faq-item.open .faq-a { display: block; }
-
-.faq-a strong { color: var(--accent); }
-
-/* ═══════════════════════════════════════════
-   FINAL CTA
-═══════════════════════════════════════════ */
-.final-cta {
-  padding: 120px 0;
-  background: var(--bg2);
-  border-top: 1px solid var(--border);
+/* ─── URGÊNCIA ─── */
+.urgencia {
+  background: var(--cinza-escuro);
+  border-top: 1px solid var(--cinza-borda);
+  border-bottom: 1px solid var(--cinza-borda);
+  padding: 28px 24px;
   text-align: center;
-  position: relative;
-  overflow: hidden;
+  font-size: 0.9rem;
+  color: var(--texto2);
 }
 
-.final-cta::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(200,240,96,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(200,240,96,0.04) 1px, transparent 1px);
-  background-size: 40px 40px;
-  mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, black, transparent);
+.urgencia strong { color: var(--texto); }
+
+/* ─── CTA FINAL ─── */
+.cta-final {
+  padding: 90px 24px;
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto;
 }
 
-.final-cta-glow {
-  position: absolute;
-  width: 500px; height: 300px;
-  background: rgba(200,240,96,0.06);
-  border-radius: 50%;
-  filter: blur(100px);
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
+.cta-final h2 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 900;
+  letter-spacing: -1.2px;
+  line-height: 1.1;
+  margin-bottom: 20px;
 }
 
-.final-cta-inner { position: relative; z-index: 2; }
+.cta-final h2 em {
+  font-style: italic;
+  color: var(--verde);
+}
 
-.final-cta-h2 {
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  margin-bottom: 16px;
-  max-width: 640px;
+.cta-final p {
+  font-size: 1rem;
+  color: var(--texto2);
+  margin-bottom: 36px;
+  max-width: 480px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.final-cta-h2 span { color: var(--accent); }
-
-.final-cta-sub {
-  color: var(--text2);
-  font-size: 0.95rem;
-  margin-bottom: 40px;
+.cta-final-microcopy {
+  margin-top: 18px;
+  font-size: 0.78rem;
+  color: var(--texto2);
 }
 
-.final-cta-urgency {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(240,200,96,0.1);
-  border: 1px solid rgba(240,200,96,0.25);
-  border-radius: 20px;
-  padding: 6px 16px;
-  margin-bottom: 32px;
-  font-family: 'DM Mono', monospace;
-  font-size: 0.68rem;
-  color: var(--gold);
-  letter-spacing: 1px;
-}
-
-.urgency-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: pulse 2s infinite; }
-
-/* ═══════════════════════════════════════════
-   FOOTER
-═══════════════════════════════════════════ */
-footer {
-  padding: 32px 0;
-  background: var(--bg);
-  border-top: 1px solid var(--border);
-}
-
-.footer-inner {
-  max-width: 1100px;
+/* ─── FAQ ─── */
+.faq {
+  padding: 70px 24px;
+  border-top: 1px solid var(--cinza-borda);
+  max-width: 720px;
   margin: 0 auto;
-  padding: 0 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
 }
 
-.footer-logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem;
+.faq h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.8rem;
   font-weight: 900;
+  letter-spacing: -0.5px;
+  margin-bottom: 32px;
 }
 
-.footer-logo span { color: var(--accent); }
-
-.footer-copy {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.65rem;
-  color: var(--text3);
-  letter-spacing: 1px;
+.faq-item {
+  border-bottom: 1px solid var(--cinza-borda);
 }
 
-.footer-links {
+.faq-pergunta {
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--texto);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.97rem;
+  font-weight: 600;
+  padding: 18px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  text-align: left;
+  gap: 16px;
+}
+
+.faq-seta { color: var(--verde); font-size: 1.1rem; flex-shrink: 0; transition: transform 0.2s; }
+.faq-item.aberto .faq-seta { transform: rotate(45deg); }
+
+.faq-resposta {
+  display: none;
+  padding: 0 0 18px;
+  font-size: 0.93rem;
+  color: var(--texto2);
+  line-height: 1.7;
+}
+
+.faq-item.aberto .faq-resposta { display: block; }
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--cinza-borda);
+  padding: 32px 24px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--texto2);
+}
+
+footer .ft-logo {
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+footer .ft-logo span { color: var(--verde); }
+
+.ft-links {
   display: flex;
   gap: 20px;
+  justify-content: center;
+  margin-top: 12px;
 }
 
-.footer-link {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.62rem;
-  color: var(--text3);
-  text-decoration: none;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: color 0.2s;
+.ft-links a {
+  color: var(--texto2);
+  font-size: 0.78rem;
+  text-decoration: underline;
+  text-decoration-color: var(--cinza-borda);
 }
 
-.footer-link:hover { color: var(--text); }
+/* ─── MOBILE ─── */
+@media (max-width: 600px) {
+  .hero h1 { font-size: 2.2rem; }
+  .oferta-corpo { padding: 28px 22px 32px; }
+  .oferta-titulo { font-size: 1.5rem; }
+  .preco-por { font-size: 2.4rem; }
+}
 
-/* ═══════════════════════════════════════════
-   SCROLL ANIMATIONS
-═══════════════════════════════════════════ */
+/* ─── REVEAL ─── */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
-
-.reveal.visible {
+.reveal.visivel {
   opacity: 1;
-  transform: translateY(0);
-}
-
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
-
-/* ═══════════════════════════════════════════
-   RESPONSIVE
-═══════════════════════════════════════════ */
-@media (max-width: 900px) {
-  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
-  .hero-mockup { display: none; }
-  .hero { min-height: auto; padding: 110px 0 60px; }
-  .pain-grid { grid-template-columns: 1fr; gap: 48px; }
-  .steps { grid-template-columns: repeat(2, 1fr); gap: 32px; }
-  .steps::before { display: none; }
-  .benefits-grid { grid-template-columns: 1fr; }
-  .benefit-card--featured { grid-column: span 1; grid-template-columns: 1fr; }
-  .proof-grid { grid-template-columns: 1fr; }
-  .proof-numbers { grid-template-columns: 1fr; }
-  .included-grid { grid-template-columns: 1fr; }
-  .stats-inner { grid-template-columns: repeat(2, 1fr); }
-  .stat-item:nth-child(2) { border-right: none; }
-  .stat-item:nth-child(3) { border-top: 1px solid var(--border); }
-  .stat-item:nth-child(4) { border-top: 1px solid var(--border); border-right: none; }
-}
-
-@media (max-width: 520px) {
-  .nav-cta { display: none; }
-  .steps { grid-template-columns: 1fr; }
-  .stats-inner { grid-template-columns: 1fr 1fr; }
-  .price-card-top, .price-card-body { padding-left: 24px; padding-right: 24px; }
-  .faq-q { font-size: 0.85rem; padding: 16px 18px; }
-  .faq-a { padding-left: 18px; }
-  .benefits-grid { grid-template-columns: 1fr; }
+  transform: none;
 }
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════
-     CONSTANTES DE LINK — EDITE AQUI
-══════════════════════════════════ -->
-<script>
-  const CHECKOUT_URL = "https://checkout.ticto.app/OB5D83C44";
-  const APP_URL      = "https://c-vanalyzer-ia.vercel.app";
-
-  function goCheckout() {
-    window.location.href = CHECKOUT_URL;
-  }
-
-  function goApp() {
-    window.location.href = APP_URL;
-  }
-</script>
+<!-- BARRA TOPO -->
+<div class="barra-topo">
+  🔒 Pagamento 100% seguro · Acesso em minutos · 7 dias de garantia
+</div>
 
 <!-- NAV -->
 <nav>
-  <div class="nav-inner">
-    <div class="nav-logo">CV<span>Analyzer</span></div>
-    <button class="nav-cta" onclick="goCheckout()">Parar de ser ignorado — R$ 29,90</button>
-  </div>
+  <div class="logo">CV<span>Analyzer</span></div>
+  <button class="nav-btn" onclick="goCheckout()">Analisar meu currículo →</button>
 </nav>
 
-<!-- ══════════════════════════════════
-     HERO
-══════════════════════════════════ -->
+<!-- ══════════════════════════════
+     1. HEADLINE + SUBHEADLINE + CTA
+══════════════════════════════ -->
 <section class="hero">
-  <div class="hero-blob hero-blob--1"></div>
-  <div class="hero-blob hero-blob--2"></div>
+  <div class="hero-kicker">⚠ Você pode estar sendo eliminado sem perceber</div>
 
-  <div class="hero-inner">
-    <div class="hero-content">
-      <div class="hero-tag">
-        <span class="hero-tag-dot"></span>
-        <span>Seu currículo pode estar te sabotando agora</span>
-      </div>
+  <h1 class="reveal">
+    Você envia currículo.<br>
+    Ninguém responde.<br>
+    <em>O erro não é o que você pensa.</em>
+  </h1>
 
-      <h1 class="display hero-h1">
-        Seu currículo<br>
-        está sendo <em>ignorado</em> —<br>
-        e você nem percebe.
-      </h1>
+  <p class="hero-sub reveal">
+    A maioria das pessoas acha que falta experiência. Na verdade,
+    <strong>seu currículo é descartado antes de chegar em uma pessoa de verdade.</strong>
+    Em segundos.
+  </p>
 
-      <p class="hero-sub">
-        O problema quase nunca é falta de capacidade. É que seu currículo tem erros estruturais invisíveis que o eliminam automaticamente — antes de qualquer humano ler. O CVAnalyzer revela esses erros e diz exatamente como corrigir.
-      </p>
+  <button class="btn-principal reveal" onclick="goCheckout()">
+    Quero descobrir o que está errado →
+  </button>
+  <p class="hero-microcopy reveal">R$29,90 · pagamento único · sem mensalidade</p>
+</section>
 
-      <div class="hero-actions">
-        <button class="btn-hero" onclick="goCheckout()">
-          <span class="btn-hero-icon">→</span>
-          Quero corrigir meu currículo agora
-        </button>
-        <div class="hero-trust">
-          <span class="hero-trust-dot">✦</span>
-          Acesso liberado em minutos
-          <span class="hero-trust-dot">✦</span>
-          Pagamento único de R$29,90
-        </div>
-      </div>
-    </div>
+<hr class="divisor">
 
-    <!-- Mockup visual -->
-    <div class="hero-mockup">
-      <div class="mockup-floating">⚠ 3 erros críticos encontrados</div>
-      <div class="mockup-card">
-        <div class="mockup-header">
-          <div class="mockup-avatar">JS</div>
-          <div>
-            <div class="mockup-name">João Silva</div>
-            <div class="mockup-role">Desenvolvedor Pleno · São Paulo</div>
-          </div>
-        </div>
+<!-- ══════════════════════════════
+     2. QUEBRA DE CRENÇA
+══════════════════════════════ -->
+<section>
+<div class="crenca">
+  <span class="crenca-label reveal">O que ninguém te conta</span>
 
-        <div class="mockup-score-row">
-          <span class="mockup-score-label">Score do currículo</span>
-          <span class="mockup-score-val">72/100</span>
-        </div>
-        <div class="mockup-bar">
-          <div class="mockup-bar-fill"></div>
-        </div>
+  <h2 class="reveal">
+    Você não foi rejeitado.<br>
+    Você foi <em style="font-style:italic; color:var(--vermelho)">filtrado.</em>
+  </h2>
 
-        <div class="mockup-items">
-          <div class="mockup-item">
-            <div class="mockup-item-icon icon-crit">●</div>
-            <span class="mockup-item-text">Sem resumo profissional — você é descartado em menos de 6 segundos</span>
-            <span class="mockup-badge badge-crit">Urgente</span>
-          </div>
-          <div class="mockup-item">
-            <div class="mockup-item-icon icon-warn">●</div>
-            <span class="mockup-item-text">Experiências sem números ou resultados — invisível para o recrutador</span>
-            <span class="mockup-badge badge-warn">Melhoria</span>
-          </div>
-          <div class="mockup-item">
-            <div class="mockup-item-icon icon-ok">●</div>
-            <span class="mockup-item-text">Habilidades técnicas bem listadas e alinhadas com o mercado</span>
-            <span class="mockup-badge badge-ok">Positivo</span>
-          </div>
-        </div>
-      </div>
-    </div>
+  <p class="reveal">
+Antes de um recrutador ver seu currículo,
+um sistema automático decide se você continua ou não.
+
+Se você não passa por ele…
+ninguém nunca vai te ver.
+  </p>
+
+  <p class="reveal">
+    Não importa se você tem 5 ou 15 anos de experiência. Se o currículo não estiver no formato certo, com as palavras certas, na ordem certa — <strong>você some da lista</strong>.
+  </p>
+
+  <p class="reveal">
+    E o pior: você nunca recebe uma explicação. Só o silêncio.
+  </p>
+
+  <div class="crenca-destaque reveal">
+    💡 <strong>Esse filtro tem regras.</strong> Quando você aprende essas regras, suas chances de ser chamado aumentam drasticamente — mesmo sem mudar sua experiência.
+  </div>
+</div>
+</section>
+
+<hr class="divisor">
+
+<!-- ══════════════════════════════
+     3. LISTA DE DORES REAIS
+══════════════════════════════ -->
+<section class="dores">
+  <div class="dores-inner">
+    <h2 class="reveal">Isso parece com você?</h2>
+    <p class="dores-sub reveal">Se você se identificar com mais de um item abaixo, seu currículo provavelmente tem um problema sério.</p>
+
+    <ul class="lista-dores">
+      <li class="reveal"><span class="icone">😶</span> Você manda currículo toda semana e ninguém responde</li>
+      <li class="reveal"><span class="icone">😩</span> Você vê a vaga perfeita, se candidata com tudo, e não recebe nem uma mensagem automática</li>
+      <li class="reveal"><span class="icone">🤔</span> Você tem a experiência que a vaga pede, mas continua sendo ignorado</li>
+      <li class="reveal"><span class="icone">😔</span> Você já pediu para alguém "dar uma olhada" no currículo, mas as dicas foram vagas e não resolveram</li>
+      <li class="reveal"><span class="icone">😤</span> Você não sabe se o problema é o currículo, o LinkedIn, ou se é outra coisa</li>
+      <li class="reveal"><span class="icone">🫣</span> Você já cogitou mandar o mesmo currículo de 3 anos atrás — porque não sabe o que mudar</li>
+    </ul>
   </div>
 </section>
 
-<!-- ══════════════════════════════════
-     STATS BAR
-══════════════════════════════════ -->
-<div class="stats-bar">
-  <div class="stats-inner">
-    <div class="stat-item reveal">
-      <span class="stat-num">+2.000</span>
-      <span class="stat-label">Currículos com erros revelados</span>
+<!-- ══════════════════════════════
+     4. SOLUÇÃO
+══════════════════════════════ -->
+<section>
+<div class="solucao">
+  <span class="solucao-label reveal">A solução</span>
+
+  <h2 class="reveal">
+    Apresentando o <em>CVAnalyzer.</em>
+  </h2>
+
+  <p class="reveal">
+    Você envia seu currículo. Em minutos, recebe um diagnóstico completo: <strong>o que está bom, o que te elimina, e como corrigir</strong>.
+  </p>
+
+  <p class="reveal">
+Você envia seu currículo.
+
+Em minutos, recebe:
+• o que está te eliminando  
+• o que está errado  
+• e como corrigir  
+
+Sem achismo. Sem enrolação.  </p>
+
+  <p class="reveal">
+    Você ainda pode enviar a descrição de uma vaga específica e saber <strong>qual a sua compatibilidade com aquela vaga</strong> — e o que precisa ajustar para aumentar suas chances.
+  </p>
+
+  <p class="reveal">
+    Sem currículo? Sem problema. Tem um <strong>modo que cria seu currículo do zero</strong> a partir das suas informações.
+  </p>
+</div>
+</section>
+
+<hr class="divisor">
+
+<!-- ══════════════════════════════
+     5. BENEFÍCIOS CLAROS
+══════════════════════════════ -->
+<section class="beneficios">
+  <div class="beneficios-inner">
+    <h2 class="reveal">O que você vai conseguir fazer</h2>
+
+    <ul class="lista-beneficios">
+      <li class="reveal">
+        <div class="ben-num">1</div>
+        <div>
+          <div class="ben-titulo">Descobrir por que você está sendo eliminado</div>
+          <div class="ben-desc">Você vê exatamente quais partes do seu currículo estão te custando oportunidades — sem achismo.</div>
+        </div>
+      </li>
+      <li class="reveal">
+        <div class="ben-num">2</div>
+        <div>
+          <div class="ben-titulo">Saber se você está compatível com a vaga</div>
+          <div class="ben-desc">Envie um print da vaga e receba um percentual de match — e uma lista do que ajustar para aquela posição específica.</div>
+        </div>
+      </li>
+      <li class="reveal">
+        <div class="ben-num">3</div>
+        <div>
+          <div class="ben-titulo">Corrigir e melhorar sem depender de ninguém</div>
+          <div class="ben-desc">Com o diagnóstico em mãos, você sabe exatamente o que mudar. Sem pagar consultor. Sem pedir favor pra ninguém.</div>
+        </div>
+      </li>
+      <li class="reveal">
+        <div class="ben-num">4</div>
+        <div>
+          <div class="ben-titulo">Criar um currículo do zero se precisar</div>
+          <div class="ben-desc">Não tem currículo ainda? Responda algumas perguntas e o CVAnalyzer monta um para você — já no formato que os sistemas aceitam.</div>
+        </div>
+      </li>
+      <li class="reveal">
+        <div class="ben-num">5</div>
+        <div>
+          <div class="ben-titulo">Testar quantas versões quiser em 30 dias</div>
+          <div class="ben-desc">Você tem 30 dias de acesso. Corrija, analise, corrija de novo. Até estar satisfeito com o resultado.</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     6. PROVA SOCIAL
+══════════════════════════════ -->
+<section>
+<div class="prova">
+  <h2 class="reveal">O que pessoas como você estão dizendo</h2>
+
+  <div class="depoimentos">
+    <div class="depo reveal">
+      <div class="depo-estrelas">★★★★★</div>
+      <p class="depo-texto">Mandava currículo todo dia e zero resposta. Após analisar no CVAnalyzer e corrigir os problemas, em uma semana já tinha duas entrevistas marcadas.</p>
+      <div class="depo-autor">— Gabriela T., São Paulo · Analista de Marketing</div>
     </div>
-    <div class="stat-item reveal reveal-delay-1">
-      <span class="stat-num">94%</span>
-      <span class="stat-label">Recomendam após usar</span>
+
+    <div class="depo reveal">
+      <div class="depo-estrelas">★★★★★</div>
+      <p class="depo-texto">Achei que meu currículo estava ótimo. O CVAnalyzer me mostrou 7 erros que eu nunca teria percebido sozinho. Fiquei chocado com o quanto estava errado.</p>
+      <div class="depo-autor">— Rafael M., Belo Horizonte · Desenvolvedor</div>
     </div>
-    <div class="stat-item reveal reveal-delay-2">
-      <span class="stat-num">~18s</span>
-      <span class="stat-label">Tempo médio de análise</span>
+
+    <div class="depo reveal">
+      <div class="depo-estrelas">★★★★★</div>
+      <p class="depo-texto">Já gastei muito mais do que R$29,90 com "especialistas" que me deram dicas genéricas. O CVAnalyzer foi mais útil do que tudo isso junto.</p>
+      <div class="depo-autor">— Camila S., Curitiba · Gestora de Projetos</div>
     </div>
-    <div class="stat-item reveal reveal-delay-3">
-      <span class="stat-num">3 modos</span>
-      <span class="stat-label">De análise e geração</span>
+
+    <div class="depo reveal">
+      <div class="depo-estrelas">★★★★★</div>
+      <p class="depo-texto">O modo de match por vaga é incrível. Descobri que eu estava 48% compatível com vagas que achava que eram perfeitas pra mim. Depois de ajustar, subi para 81%.</p>
+      <div class="depo-autor">— Lucas A., Porto Alegre · Comercial</div>
     </div>
   </div>
 </div>
+</section>
 
-<!-- ══════════════════════════════════
-     DOR
-══════════════════════════════════ -->
-<section class="pain">
-  <div class="container">
-    <span class="section-label reveal">O problema que ninguém te conta</span>
-    <div class="pain-grid">
-      <div>
-        <h2 class="display pain-h2 reveal">
-          Você envia<br>
-          dezenas de CVs.<br>
-          Nenhuma <span>resposta.</span>
-        </h2>
-        <p class="pain-text reveal reveal-delay-1">
-          Você envia currículo atrás de currículo. Verifica o e-mail todo dia. Não recebe nada. E fica se perguntando: será que sou eu? O problema quase nunca é você — é que seu currículo está sendo eliminado automaticamente por sistemas de triagem (ATS) antes de qualquer humano ler sequer uma linha.
-        </p>
-        <p class="pain-text reveal reveal-delay-2">
-          Isso é invisível sem análise. Você não recebe feedback, não sabe o que errou, e continua repetindo o mesmo erro em cada candidatura. É uma armadilha silenciosa — e a maioria das pessoas não percebe onde está errando.
-        </p>
-        <div class="pain-problems reveal reveal-delay-3">
-          <div class="pain-problem">
-            <span class="pain-problem-icon">⚠</span>
-            <span class="pain-problem-text">Palavras-chave erradas → eliminado pelo ATS antes de ser lido por qualquer pessoa</span>
-          </div>
-          <div class="pain-problem">
-            <span class="pain-problem-icon">⚠</span>
-            <span class="pain-problem-text">Experiências vagas e sem números → recrutador descarta em menos de 6 segundos</span>
-          </div>
-          <div class="pain-problem">
-            <span class="pain-problem-icon">⚠</span>
-            <span class="pain-problem-text">Estrutura desatualizada → passa imagem de candidato despreparado antes de abrir a boca</span>
-          </div>
-          <div class="pain-problem">
-            <span class="pain-problem-icon">⚠</span>
-            <span class="pain-problem-text">Sem resumo profissional → perde o único momento em que o recrutador presta atenção</span>
-          </div>
-        </div>
+<hr class="divisor">
+
+<!-- ══════════════════════════════
+     7. OFERTA
+══════════════════════════════ -->
+<section class="oferta">
+  <div class="oferta-box">
+    <div class="oferta-topo">✦ Oferta especial de lançamento ✦</div>
+    <div class="oferta-corpo">
+      <div class="oferta-titulo reveal">CVAnalyzer — Acesso Completo</div>
+      <div class="oferta-desc reveal">Tudo que você precisa para parar de ser ignorado.</div>
+
+      <ul class="oferta-lista">
+        <li class="reveal">Análise completa do seu currículo</li>
+        <li class="reveal">Match com vagas específicas (por print ou texto)</li>
+        <li class="reveal">Gerador de currículo do zero</li>
+        <li class="reveal">30 dias de acesso — analise quantas versões quiser</li>
+        <li class="reveal">Funciona no celular e no computador</li>
+        <li class="reveal">Acesso liberado em minutos após o pagamento</li>
+      </ul>
+
+      <div class="preco-linha reveal">
+        <span class="preco-de">R$79,90</span>
+        <span class="preco-por">R$29,90</span>
       </div>
+      <div class="preco-desc reveal">pagamento único · sem mensalidade · sem renovação automática</div>
 
-      <div class="pain-right reveal">
-        <div class="rejection-card">
-          <div class="rejection-title">A realidade do mercado de trabalho</div>
-          <div class="rejection-stat">
-            <span class="rejection-num">75%</span>
-            <div class="rejection-desc">dos currículos são descartados<br>antes de um humano ler uma linha</div>
-          </div>
-          <div class="rejection-reasons">
-            <div class="rejection-reason">Palavras-chave ausentes ou erradas no currículo</div>
-            <div class="rejection-reason">Formatação incompatível com filtros ATS</div>
-            <div class="rejection-reason">Experiências sem impacto ou resultados claros</div>
-            <div class="rejection-reason">Currículo não alinhado à vaga específica</div>
-            <div class="rejection-reason">Erros que você não consegue enxergar sozinho</div>
-          </div>
-        </div>
+      <button class="btn-comprar reveal" onclick="goCheckout()">
+Quero ser chamado para entrevistas →
+      </button>
+
+      <div class="oferta-seguranca reveal">
+        🔒 Pagamento seguro · Pix, cartão ou boleto<br>
+        7 dias de garantia incondicional
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════
-     COMO FUNCIONA
-══════════════════════════════════ -->
-<section class="how">
-  <div class="container">
-    <div class="section-head">
-      <span class="section-label reveal">Simples assim</span>
-      <h2 class="display section-h2 reveal">Como funciona</h2>
-      <p class="section-sub reveal reveal-delay-1">Em menos de 20 segundos você sabe exatamente o que está te eliminando das vagas. Sem enrolação, sem achismo.</p>
-    </div>
-
-    <div class="steps">
-      <div class="step reveal">
-        <div class="step-num">
-          01
-          <span class="step-icon">📄</span>
-        </div>
-        <div class="step-title">Envie seu currículo</div>
-        <div class="step-desc">Upload do PDF ou cole o texto. Sem instalação, sem burocracia — funciona direto no navegador.</div>
-      </div>
-      <div class="step reveal reveal-delay-1">
-        <div class="step-num">
-          02
-          <span class="step-icon">🤖</span>
-        </div>
-        <div class="step-title">A IA vasculha tudo</div>
-        <div class="step-desc">Estrutura, palavras-chave, impacto das experiências, alinhamento com ATS — nada passa despercebido.</div>
-      </div>
-      <div class="step reveal reveal-delay-2">
-        <div class="step-num">
-          03
-          <span class="step-icon">📊</span>
-        </div>
-        <div class="step-title">Descubra o que te elimina</div>
-        <div class="step-desc">Pontos críticos, alertas e o que está bem — tudo organizado, sem rodeios, com prioridade de correção.</div>
-      </div>
-      <div class="step reveal reveal-delay-3">
-        <div class="step-num">
-          04
-          <span class="step-icon">🚀</span>
-        </div>
-        <div class="step-title">Corrija e pare de ser ignorado</div>
-        <div class="step-desc">Siga as correções, atualize o currículo e comece a receber as respostas que você merecia há tempos.</div>
-      </div>
-    </div>
-  </div>
+<!-- ══════════════════════════════
+     8. GARANTIA
+══════════════════════════════ -->
+<section>
+<div class="garantia">
+  <div class="garantia-icone reveal">🛡️</div>
+  <h3 class="reveal">Garantia de 7 dias</h3>
+  <p class="reveal">
+    Se em até 7 dias você não achar que valeu cada centavo, é só falar. Devolvemos 100% do seu dinheiro, sem pergunta, sem burocracia. Sem risco nenhum pra você.
+  </p>
+</div>
 </section>
 
-<!-- ══════════════════════════════════
-     BENEFÍCIOS
-══════════════════════════════════ -->
-<section class="benefits">
-  <div class="container">
-    <div class="section-head">
-      <span class="section-label reveal">Por que o CVAnalyzer muda o jogo</span>
-      <h2 class="display section-h2 reveal">Pare de adivinhar.<br>Saiba o que corrigir.</h2>
-    </div>
+<!-- ══════════════════════════════
+     9. URGÊNCIA LEVE
+══════════════════════════════ -->
+<div class="urgencia reveal">
+  ⚡ Cada dia com o currículo errado é mais uma vaga que você perde. <strong>Cada dia com o currículo errado = mais oportunidades perdidas.</strong>
+</div>
 
-    <div class="benefits-grid">
-      <div class="benefit-card benefit-card--featured reveal">
-        <div>
-          <span class="benefit-icon">🎯</span>
-          <div class="benefit-title">Saiba se você vai ser chamado antes de enviar o currículo</div>
-          <div class="benefit-desc">
-            Manda o print da vaga. A IA cruza cada requisito com o seu currículo e mostra exatamente onde você está abaixo do esperado — e o que mudar para aumentar suas chances naquela vaga específica, antes de enviar.
-          </div>
-        </div>
-        <div>
-          <span class="benefit-feat-badge">Modo Premium</span>
-        </div>
-      </div>
+<!-- ══════════════════════════════
+     10. FAQ
+══════════════════════════════ -->
+<section class="faq wrap">
+  <h2 class="reveal">Perguntas frequentes</h2>
 
-      <div class="benefit-card reveal">
-        <span class="benefit-icon">📋</span>
-        <div class="benefit-title">Descubra exatamente o que está te eliminando das vagas</div>
-        <div class="benefit-desc">Score de 0 a 100 com cada fraqueza apontada e priorizada. Sem achismo, sem genérico — você vê exatamente o que corrigir primeiro.</div>
-      </div>
-
-      <div class="benefit-card reveal reveal-delay-1">
-        <span class="benefit-icon">⚡</span>
-        <div class="benefit-title">Resultado em 18 segundos — não em dias</div>
-        <div class="benefit-desc">Nada de esperar feedback de recrutador que nunca chega. Em cerca de 18 segundos você já sabe o que está errado e como consertar.</div>
-      </div>
-
-      <div class="benefit-card reveal reveal-delay-2">
-        <span class="benefit-icon">✨</span>
-        <div class="benefit-title">Não tem currículo? A IA cria um profissional do zero</div>
-        <div class="benefit-desc">Responde algumas perguntas, informa a vaga que quer — e recebe um currículo otimizado para ATS, pronto para usar. Sem gastar com designer ou consultoria.</div>
-      </div>
-
-      <div class="benefit-card reveal reveal-delay-3">
-        <span class="benefit-icon">🔑</span>
-        <div class="benefit-title">As palavras que os filtros automáticos esperam ver</div>
-        <div class="benefit-desc">A análise revela os termos exatos que faltam para seu currículo passar pelos filtros ATS das grandes empresas — a maioria das pessoas não percebe que esses termos existem.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════
-     PROVA SOCIAL
-══════════════════════════════════ -->
-<section class="proof">
-  <div class="container">
-    <div class="section-head">
-      <span class="section-label reveal">Resultados de quem parou de ser ignorado</span>
-      <h2 class="display section-h2 reveal">Pessoas reais.<br>Resultados reais.</h2>
-    </div>
-
-    <div class="proof-numbers">
-      <div class="proof-number reveal">
-        <span class="proof-number-val">+2.000</span>
-        <span class="proof-number-label">Currículos com erros revelados</span>
-      </div>
-      <div class="proof-number reveal reveal-delay-1">
-        <span class="proof-number-val">94%</span>
-        <span class="proof-number-label">Encontraram erros que não sabiam que tinham</span>
-      </div>
-      <div class="proof-number reveal reveal-delay-2">
-        <span class="proof-number-val">3x</span>
-        <span class="proof-number-label">Mais retornos de recrutadores relatados</span>
-      </div>
-    </div>
-
-    <div class="proof-grid">
-      <div class="testimonial reveal">
-        <div class="testimonial-stars">
-          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
-        </div>
-        <p class="testimonial-text">
-          Mandei currículo para mais de 30 vagas em dois meses. Zero retorno. Achei que era o mercado. Usei o CVAnalyzer e descobri que meu currículo não tinha resumo profissional e estava sem nenhuma palavra-chave da área. Corrigi em uma tarde. Na semana seguinte, duas entrevistas.
-        </p>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar av-1">MF</div>
-          <div>
-            <div class="testimonial-name">Mariana F.</div>
-            <div class="testimonial-role">Analista de Marketing · SP</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testimonial reveal reveal-delay-1">
-        <div class="testimonial-stars">
-          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
-        </div>
-        <p class="testimonial-text">
-          Eu tinha certeza que meu currículo tava bom — afinal, fui eu quem fez. A IA mostrou que minhas experiências eram tão vagas que não diziam nada ao recrutador. Reescrevi com os dados que ela sugeriu. Os recrutadores passaram a comentar o currículo nas entrevistas. Paguei R$29,90 e mudou tudo.
-        </p>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar av-2">RC</div>
-          <div>
-            <div class="testimonial-name">Rafael C.</div>
-            <div class="testimonial-role">Desenvolvedor Pleno · RJ</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testimonial reveal reveal-delay-2">
-        <div class="testimonial-stars">
-          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
-        </div>
-        <p class="testimonial-text">
-          Saindo da faculdade sem experiência, sem saber nem por onde começar. O gerador de currículo criou um CV profissional do zero com base na vaga que eu queria. Não precisei pagar designer, não precisei de consultoria. Consegui o estágio em menos de 1 mês.
-        </p>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar av-3">JA</div>
-          <div>
-            <div class="testimonial-name">Júlia A.</div>
-            <div class="testimonial-role">Estagiária de RH · MG</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════
-     O QUE ESTÁ INCLUSO
-══════════════════════════════════ -->
-<section class="included">
-  <div class="container">
-    <div class="section-head">
-      <span class="section-label reveal">Tudo incluso no acesso</span>
-      <h2 class="display section-h2 reveal">Tudo que você precisa<br>para parar de ser ignorado</h2>
-    </div>
-
-    <div class="included-grid">
-      <div class="included-list">
-        <div class="included-item reveal">
-          <div class="included-check">✓</div>
-          <div>
-            <span class="included-item-title">Análise Geral de Currículo</span>
-            <span class="included-item-desc">Score + os erros exatos que te eliminam das vagas</span>
-          </div>
-        </div>
-        <div class="included-item reveal reveal-delay-1">
-          <div class="included-check">✓</div>
-          <div>
-            <span class="included-item-title">Match por Vaga (Premium)</span>
-            <span class="included-item-desc">Saiba sua compatibilidade % com a vaga antes de enviar</span>
-          </div>
-        </div>
-        <div class="included-item reveal reveal-delay-2">
-          <div class="included-check">✓</div>
-          <div>
-            <span class="included-item-title">Gerador de Currículo com IA</span>
-            <span class="included-item-desc">Cria um CV profissional do zero — sem pagar designer</span>
-          </div>
-        </div>
-        <div class="included-item reveal reveal-delay-3">
-          <div class="included-check">✓</div>
-          <div>
-            <span class="included-item-title">30 dias de acesso completo</span>
-            <span class="included-item-desc">Analise e corrija quantas versões quiser no período</span>
-          </div>
-        </div>
-        <div class="included-item reveal reveal-delay-4">
-          <div class="included-check">✓</div>
-          <div>
-            <span class="included-item-title">Funciona no celular e no computador</span>
-            <span class="included-item-desc">Acessa de onde quiser, sem instalar nada</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="included-visual reveal">
-        <div class="iv-title">Modos disponíveis no CVAnalyzer</div>
-
-        <div class="iv-mode iv-mode--active">
-          <span class="iv-mode-icon">📄</span>
-          <span class="iv-mode-name">Análise Geral</span>
-          <span class="iv-mode-tag iv-tag-std">Padrão</span>
-        </div>
-
-        <div class="iv-mode iv-mode--active">
-          <span class="iv-mode-icon">🎯</span>
-          <span class="iv-mode-name">Match por Vaga</span>
-          <span class="iv-mode-tag iv-tag-prem">Premium</span>
-        </div>
-
-        <div class="iv-mode iv-mode--active">
-          <span class="iv-mode-icon">✨</span>
-          <span class="iv-mode-name">Gerador de Currículo</span>
-          <span class="iv-mode-tag iv-tag-elite">Elite</span>
-        </div>
-
-        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border);">
-          <div style="font-family:'DM Mono',monospace; font-size:0.65rem; color:var(--text3); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:10px;">Incluso no acesso</div>
-          <div style="font-size: 0.82rem; color: var(--text2); line-height: 1.8;">
-            ✦ PDF e TXT suportados<br>
-            ✦ Print de vaga (LinkedIn, Gupy, Catho…)<br>
-            ✦ Relatório com score e prioridades<br>
-            ✦ Resultados em português brasileiro<br>
-            ✦ Funciona em qualquer dispositivo
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════
-     PREÇO
-══════════════════════════════════ -->
-<section class="pricing" id="preco">
-  <div class="container">
-    <div class="section-head">
-      <span class="section-label reveal">Menos que o custo de perder mais uma vaga</span>
-      <h2 class="display section-h2 reveal">Um único ajuste<br>pode mudar tudo.</h2>
-      <p class="section-sub reveal reveal-delay-1">R$ 29,90. Uma vez. Sem mensalidade, sem renovação automática. Menos do que você gastaria numa pizza — e com retorno infinitamente maior.</p>
-    </div>
-
-    <div class="price-card reveal">
-      <div class="price-card-top">
-        <div class="price-plan-name">Acesso Completo · 30 dias</div>
-        <div class="price-amount">
-          <span class="price-currency">R$</span>
-          <span class="price-value">29</span>
-          <span class="price-cents">,90</span>
-        </div>
-        <div class="price-period">pagamento único · sem assinatura</div>
-      </div>
-      <div class="price-card-body">
-        <ul class="price-features">
-          <li class="price-feature"><span class="price-feature-check">✓</span> Análise Geral — descubra o que te elimina das vagas</li>
-          <li class="price-feature"><span class="price-feature-check">✓</span> Match por Vaga — compatibilidade com qualquer vaga</li>
-          <li class="price-feature"><span class="price-feature-check">✓</span> Gerador de Currículo — cria do zero com IA</li>
-          <li class="price-feature"><span class="price-feature-check">✓</span> 30 dias de acesso completo — corrija quantas versões quiser</li>
-          <li class="price-feature"><span class="price-feature-check">✓</span> Funciona no celular e no computador</li>
-          <li class="price-feature"><span class="price-feature-check">✓</span> Acesso liberado em minutos após a compra</li>
-        </ul>
-
-        <button class="btn-price" onclick="goCheckout()">Quero parar de ser ignorado →</button>
-
-        <div class="price-guarantee">
-          Pagamento único · Sem mensalidade · Sem renovação automática<br>
-          Acesso imediato · Você testa por 30 dias completos</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="price-post-info reveal">
-      <span class="price-post-icon">ℹ️</span>
-      <span class="price-post-text">
-        Após a compra, seu acesso será liberado para o <strong>e-mail informado no pagamento</strong>. Para entrar no CVAnalyzer, use esse mesmo e-mail — você pode acessar com o botão <strong>Entrar com Google</strong> ou criar uma senha.
-      </span>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════
-     FAQ
-══════════════════════════════════ -->
-<section class="faq">
-  <div class="container--narrow">
-    <div class="section-head">
-      <span class="section-label reveal">Dúvidas frequentes</span>
-      <h2 class="display section-h2 reveal">Perguntas e<br>respostas</h2>
-    </div>
-
-    <div class="faq-list">
-      <div class="faq-item reveal">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Preciso instalar algum programa?
-          <span class="faq-arrow">▼</span>
-        </button>
-        <div class="faq-a">
-          Não. O CVAnalyzer funciona 100% pelo navegador, sem instalação. Abra o link, faça login e já pode usar. Funciona no Chrome, Safari, Firefox e qualquer navegador moderno.
-        </div>
-      </div>
-
-      <div class="faq-item reveal reveal-delay-1">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Posso usar pelo celular?
-          <span class="faq-arrow">▼</span>
-        </button>
-        <div class="faq-a">
-          Sim. O CVAnalyzer é totalmente responsivo e funciona muito bem em celulares. Você pode até tirar print de uma vaga no LinkedIn e enviar direto pelo celular para a análise de Match.
-        </div>
-      </div>
-
-      <div class="faq-item reveal reveal-delay-2">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          O acesso é imediato após a compra?
-          <span class="faq-arrow">▼</span>
-        </button>
-        <div class="faq-a">
-          Sim. Após a confirmação do pagamento (geralmente em poucos minutos para Pix e instantâneo para cartão), seu acesso é liberado automaticamente. Basta acessar o CVAnalyzer com o mesmo e-mail usado na compra.
-        </div>
-      </div>
-
-      <div class="faq-item reveal reveal-delay-3">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Como recebo meu acesso?
-          <span class="faq-arrow">▼</span>
-        </button>
-        <div class="faq-a">
-          Seu acesso é vinculado ao <strong>e-mail que você usou na compra</strong>. Acesse <a href="#" onclick="goApp(); return false;" style="color: var(--accent); text-decoration: none;">o CVAnalyzer</a>, clique em "Entrar com Google" usando esse mesmo e-mail — ou crie uma conta com e-mail e senha. O sistema reconhece automaticamente.
-        </div>
-      </div>
-
-      <div class="faq-item reveal reveal-delay-4">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Preciso criar uma conta?
-          <span class="faq-arrow">▼</span>
-        </button>
-        <div class="faq-a">
-          Sim, mas é rápido. Você pode entrar com sua conta Google em um clique — não precisa criar senha. Ou pode se cadastrar com e-mail e senha normalmente. O acesso pós-compra é vinculado ao e-mail informado no pagamento.
-        </div>
-      </div>
-
-      <div class="faq-item reveal">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Posso analisar mais de um currículo?
-          <span class="faq-arrow">▼</span>
-        </button>
-        <div class="faq-a">
-          Sim! Durante seus 30 dias de acesso, você pode analisar quantas versões quiser, respeitando o limite diário de uso (que existe para garantir qualidade para todos). É muito útil para testar versões diferentes do seu currículo.
-        </div>
-      </div>
-
-      <div class="faq-item reveal reveal-delay-1">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          O que é o modo Match por Vaga?
-          <span class="faq-arrow">▼</span>
-        </button>
-        <div class="faq-a">
-          É o modo premium: você envia um print (screenshot) de qualquer vaga — LinkedIn, Indeed, Gupy, Catho, etc. — e a IA compara os requisitos da vaga com o seu currículo. Você recebe um percentual de compatibilidade e sabe exatamente o que precisa ajustar para aumentar suas chances naquela vaga específica.
-        </div>
-      </div>
-
-      <div class="faq-item reveal reveal-delay-2">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          E se eu não tiver currículo ainda?
-          <span class="faq-arrow">▼</span>
-        </button>
-        <div class="faq-a">
-          Sem problema. O modo <strong>Gerador de Currículo</strong> cria um currículo profissional do zero com base nas suas informações e na vaga que você quer. Você responde algumas perguntas simples e recebe um currículo otimizado para ATS, pronto para usar.
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════
-     FINAL CTA
-══════════════════════════════════ -->
-<section class="final-cta">
-  <div class="final-cta-glow"></div>
-  <div class="final-cta-inner container">
-    <div class="final-cta-urgency reveal">
-      <span class="urgency-dot"></span>
-      Acesso liberado em minutos · Pagamento único · Sem mensalidade
-    </div>
-
-    <h2 class="display final-cta-h2 reveal">
-      Seu currículo pode estar<br>
-      te sabotando <span>agora.</span>
-    </h2>
-
-    <p class="final-cta-sub reveal reveal-delay-1">
-      Por R$ 29,90 você descobre exatamente o que está te eliminando das vagas — e como corrigir. Um único ajuste pode pagar esse valor facilmente.
-    </p>
-
-    <button class="btn-hero reveal reveal-delay-2" onclick="goCheckout()" style="margin: 0 auto; display: inline-flex;">
-      <span class="btn-hero-icon">→</span>
-      Quero melhorar meu currículo agora
+  <div class="faq-item reveal">
+    <button class="faq-pergunta" onclick="toggleFaq(this)">
+      Preciso instalar algum programa?
+      <span class="faq-seta">+</span>
     </button>
-
-    <p style="margin-top: 20px; font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--text3); letter-spacing: 1px;" class="reveal reveal-delay-3">
-      R$ 29,90 · Pagamento único · 30 dias de acesso · Sem mensalidade
-    </p>
+    <div class="faq-resposta">Não. Funciona direto pelo navegador, no celular ou no computador. Sem instalação.</div>
   </div>
+
+  <div class="faq-item reveal">
+    <button class="faq-pergunta" onclick="toggleFaq(this)">
+      Quanto tempo leva a análise?
+      <span class="faq-seta">+</span>
+    </button>
+    <div class="faq-resposta">Em média 1 a 3 minutos. Você já sai com o diagnóstico completo do currículo.</div>
+  </div>
+
+  <div class="faq-item reveal">
+    <button class="faq-pergunta" onclick="toggleFaq(this)">
+      Como recebo meu acesso?
+      <span class="faq-seta">+</span>
+    </button>
+    <div class="faq-resposta">Seu acesso é liberado automaticamente após o pagamento, vinculado ao e-mail informado na compra. Você pode entrar com Google ou criar uma senha.</div>
+  </div>
+
+  <div class="faq-item reveal">
+    <button class="faq-pergunta" onclick="toggleFaq(this)">
+      Posso analisar mais de um currículo?
+      <span class="faq-seta">+</span>
+    </button>
+    <div class="faq-resposta">Sim. Durante os 30 dias de acesso você pode analisar e reanalizar quantas versões quiser. Perfeito pra quem quer testar ajustes.</div>
+  </div>
+
+  <div class="faq-item reveal">
+    <button class="faq-pergunta" onclick="toggleFaq(this)">
+      E se eu não tiver currículo?
+      <span class="faq-seta">+</span>
+    </button>
+    <div class="faq-resposta">Tem o modo Gerador. Você responde algumas perguntas e o CVAnalyzer cria um currículo do zero para você, já no formato certo.</div>
+  </div>
+
+  <div class="faq-item reveal">
+    <button class="faq-pergunta" onclick="toggleFaq(this)">
+      Como funciona a garantia?
+      <span class="faq-seta">+</span>
+    </button>
+    <div class="faq-resposta">Se em até 7 dias você não estiver satisfeito, basta entrar em contato. Devolvemos 100% do valor pago, sem questionamento.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     11. CTA FINAL
+══════════════════════════════ -->
+<section>
+<div class="cta-final">
+  <h2 class="reveal">
+    Seu currículo está<br>
+    te custando <em>oportunidades agora.</em>
+  </h2>
+  <p class="reveal">
+    Por R$29,90 você descobre o que está errado e como corrigir. Uma única entrevista a mais já vale muito mais do que isso.
+  </p>
+  <button class="btn-principal reveal" onclick="goCheckout()">
+    Analisar meu currículo agora →
+  </button>
+  <p class="cta-final-microcopy reveal">R$29,90 · pagamento único · 7 dias de garantia · acesso em minutos</p>
+</div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-inner">
-    <div class="footer-logo">CV<span>Analyzer</span></div>
-    <div class="footer-copy">© 2025 CVAnalyzer. Todos os direitos reservados.</div>
-    <div class="footer-links">
-      <a href="#" class="footer-link">Termos de Uso</a>
-      <a href="#" class="footer-link">Privacidade</a>
-      <a href="#" onclick="goApp(); return false;" class="footer-link">Acessar app →</a>
-    </div>
+  <div class="ft-logo">CV<span>Analyzer</span></div>
+  <div>© 2025 CVAnalyzer. Todos os direitos reservados.</div>
+  <div class="ft-links">
+    <a href="#">Termos de Uso</a>
+    <a href="#">Privacidade</a>
+    <a href="#" onclick="goApp(); return false;">Acessar app →</a>
   </div>
 </footer>
 
-<!-- ══════════════════════════════════
-     JAVASCRIPT
-══════════════════════════════════ -->
 <script>
-  /* ── FAQ toggle ── */
+  /* Redireciona para checkout — substitua pela URL real */
+  function goCheckout() {
+    window.location.href = 'https://checkout.ticto.app/OB5D83C44';
+  }
+
+  function goApp() {
+    window.location.href = 'https://app.cvanalyzer.com.br';
+  }
+
+  /* FAQ toggle */
   function toggleFaq(btn) {
     const item = btn.parentElement;
-    const isOpen = item.classList.contains('open');
-    // Fecha todos
-    document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
-    // Abre o clicado (se estava fechado)
-    if (!isOpen) item.classList.add('open');
+    const aberto = item.classList.contains('aberto');
+    document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('aberto'));
+    if (!aberto) item.classList.add('aberto');
   }
 
-  /* ── Scroll reveal ── */
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        revealObserver.unobserve(entry.target);
+  /* Scroll reveal */
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visivel');
+        obs.unobserve(e.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
 
-  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-  /* ── Nav scroll effect ── */
-  window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    if (window.scrollY > 60) {
-      nav.style.background = 'rgba(8,8,8,0.98)';
-      nav.style.borderBottomColor = '#2a2a2a';
-    } else {
-      nav.style.background = 'rgba(8,8,8,0.9)';
-      nav.style.borderBottomColor = '#1e1e1e';
-    }
-  });
-
-  /* ── Counter animation ── */
-  function animateCounter(el, end, suffix = '') {
-    const duration = 1500;
-    const start = Date.now();
-    const startVal = 0;
-
-    function update() {
-      const elapsed = Date.now() - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = Math.round(startVal + (end - startVal) * eased);
-      el.textContent = (end >= 1000 ? '+' : '') + current.toLocaleString('pt-BR') + suffix;
-      if (progress < 1) requestAnimationFrame(update);
-    }
-    requestAnimationFrame(update);
-  }
-
-  // Dispara counters quando entram na tela
-  const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const raw = el.dataset.count;
-        if (raw) animateCounter(el, parseInt(raw), el.dataset.suffix || '');
-        counterObserver.unobserve(el);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  // Setup counters
-  const counterMap = [
-    { selector: '.stat-item:nth-child(1) .stat-num', count: 2000, suffix: '' },
-  ];
-  document.querySelectorAll('.proof-number-val, .stat-num').forEach(el => {
-    counterObserver.observe(el);
-  });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
